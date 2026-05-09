@@ -15,7 +15,6 @@
     box-sizing: border-box;
 }
 
-/* Aplicar el smooth scroll en el HTML permite que funcione en todos los navegadores */
 html {
     scroll-behavior: smooth; 
 }
@@ -42,7 +41,6 @@ a:hover {
     color: #ff5c6a;
 }
 
-/* --- Barra de Navegación (Auto-hide y PC) --- */
 #hover-zone {
     position: fixed;
     top: 0;
@@ -88,7 +86,6 @@ a:hover {
     color: var(--accent-red);
 }
 
-/* --- Botón Hamburguesa (Oculto por defecto en PC) --- */
 .menu-toggle {
     display: none;
 }
@@ -102,7 +99,6 @@ a:hover {
     background-color: white;
 }
 
-/* --- Secciones y Contenedores --- */
 .container {
     padding: 80px 20px;
     max-width: 900px;
@@ -116,7 +112,7 @@ a:hover {
     clip-path: inset(0 -100vmax);
 }
 
-/* --- Hero (Inicio) --- */
+/* --- Hero y Estilos del GIF --- */
 .hero {
     height: 100vh;
     display: flex;
@@ -131,6 +127,14 @@ a:hover {
     
     border-bottom: 2px solid var(--accent-red);
 }
+
+.hero-gif {
+    max-width: 270px; 
+    height: auto;
+    margin-top: 30px;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+}
+
 
 @keyframes fuegoAnimado {
     0% { background-position: 0% 50%; }
@@ -167,23 +171,79 @@ a:hover {
     animation: fadeInUp 1s ease-out 0.3s forwards;
 }
 
-.features-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+/*Estilos del Slider*/
+.slider-container {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto 0;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.features-list li {
-    background-color: var(--bg-color);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.05);
-    font-size: 1.1rem;
+.slider-container:hover {
+    transform: scale(1.03);
+    border-color: var(--accent-red);
+    box-shadow: 0 15px 40px rgba(230, 57, 70, 0.3);
+}
+
+.slider-wrapper {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    width: 100%;
+    transition: transform 0.5s ease-out; /* Animación de deslizamiento */
+}
+
+.slide {
+    flex: 0 0 100%; /* Cada video ocupa el 100% del ancho del contenedor */
+    width: 100%;
+    background-color: #000;
+}
+
+/* Ingeniería para mantener proporción 16:9 de YouTube/Twitch */
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Flechas de navegación */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 15px 10px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
+}
+
+.slider-btn:hover {
+    background-color: var(--accent-red);
+}
+
+.slider-btn.prev {
+    left: 10px;
+}
+
+.slider-btn.next {
+    right: 10px;
 }
 
 .twitch-wrapper {
@@ -219,7 +279,6 @@ a:hover {
     border-left: 1px solid #333;
 }
 
-/* --- Redes Sociales (Grid) --- */
 .subtitle {
     color: var(--text-muted);
     margin-bottom: 40px;
@@ -255,7 +314,6 @@ a:hover {
     transform: translateY(-5px);
 }
 
-/* --- Mejora en el Hover de Redes Sociales --- */
 .youtube:hover {
     border-color: var(--accent-youtube);
     box-shadow: 0 5px 20px rgba(255, 0, 0, 0.2);
@@ -312,7 +370,15 @@ footer {
 /* ========================================================= */
 
 @media (max-width: 768px) {
-    /* Ajustes para la sección de Twitch */
+    /* Ajuste Hero y GIF en móvil */
+    .hero-gif {
+        max-width: 100px;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    /* Ajustes para la sección de Twitch principal */
     .twitch-wrapper {
         flex-direction: column;
         height: 800px; 
@@ -329,27 +395,25 @@ footer {
 
     /* Ajustes para la barra de navegación en móviles */
     #navbar {
-        justify-content: flex-end; /* Alineamos el menú a la derecha */
+        justify-content: flex-end; 
         padding-right: 25px;
-        top: 0 !important; /* Siempre visible en celular */
+        top: 0 !important; 
     }
 
     .menu-toggle {
         display: block;
         cursor: pointer;
-        z-index: 1001; /* Que quede por encima del menú desplegado */
+        z-index: 1001; 
     }
 
-    /* Ocultar el texto del hover en móvil para evitar que estorbe al menú */
     #hover-zone {
         display: none;
     }
 
-    /* Diseño del menú lateral para celular */
     #navbar ul {
         position: fixed;
         top: 0;
-        right: -100%; /* Oculto fuera de la pantalla */
+        right: -100%; 
         height: 100vh;
         width: 250px;
         flex-direction: column;
@@ -357,7 +421,7 @@ footer {
         padding-top: 80px;
         transition: right 0.4s ease;
         border-left: 1px solid rgba(255, 255, 255, 0.1);
-        opacity: 1; /* Quitamos la animación de fade in del PC */
+        opacity: 1; 
         animation: none;
         gap: 0;
     }
@@ -367,10 +431,10 @@ footer {
         margin: 15px 0;
     }
 
-    /* Clase que se activa con JS para deslizar el menú */
     #navbar ul.active {
         right: 0;
     }
+
     .menu-toggle.is-active .bar:nth-child(2) {
         opacity: 0;
     }
@@ -379,5 +443,11 @@ footer {
     }
     .menu-toggle.is-active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Ajuste flechas slider en móvil (más pequeñas) */
+    .slider-btn {
+        font-size: 1.5rem;
+        padding: 10px 5px;
     }
 }

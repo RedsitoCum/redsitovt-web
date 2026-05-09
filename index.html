@@ -29,10 +29,11 @@
         </ul>
     </nav>
 
-    <header id="home" class="hero">
-        <h1>Conoce a <span>RedsitoVT</span></h1>
-        <p>Un furro al que no te arrepentirás de conocer</p>
-    </header>
+        <header id="home" class="hero">
+            <h1>Conoce a <span>RedsitoVT</span></h1>
+            <p>Un furro al que no te arrepentirás de conocer</p>
+            <img src="assets/gifs/point.gif" alt="Redsito apuntando" class="hero-gif">
+        </header>
 
     <main>
         <section id="main-info" class="container">
@@ -43,13 +44,40 @@
         </section>
 
         <section id="info" class="container dark-bg">
-            <h2>Contenido destacado</h2>
-            <ul class="features-list">
-                <li>🎮 Gameplays de los últimos lanzamientos</li>
-                <li>💻 Reseñas detalladas de hardware y software</li>
-                <li>🎯 Tutoriales para mejorar habilidades en videojuegos</li>
-                <li>📰 Noticias y actualizaciones del mundo tecnológico</li>
-            </ul>
+            <h2>Contenido Destacado</h2>
+            
+            <div class="slider-container">
+                <div class="slider-wrapper" id="slider-wrapper">
+                    
+                    <div class="slide">
+                        <div class="video-responsive">
+                            <iframe 
+                                src="https://www.youtube.com/embed/eTCRbX870ks?si=nshpr6THcg6N7Ueg&amp" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="video-responsive">
+                            <iframe 
+                                src="https://www.youtube.com/embed/lk-QDHTgvAA?si=2K_L40CB_Q0vxAA_" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="slider-btn prev" id="prev-btn">&#10094;</button>
+                <button class="slider-btn next" id="next-btn">&#10095;</button>
+            </div>
         </section>
 
         <section id="twitch-live" class="container">
@@ -62,7 +90,8 @@
                         allowfullscreen="true"
                         scrolling="no"
                         height="100%"
-                        width="100%">
+                        width="100%"
+                        loading="lazy">
                     </iframe>
                 </div>
                 
@@ -70,7 +99,8 @@
                     <iframe 
                         src="https://www.twitch.tv/embed/redsitovt/chat?parent=redsitocum.github.io&darkpopout"
                         height="100%"
-                        width="100%">
+                        width="100%"
+                        loading="lazy">
                     </iframe>
                 </div>
             </div>
@@ -78,19 +108,19 @@
 
         <section id="rrss" class="container dark-bg">
             <h2>Mis Redes Sociales</h2>
-            <p class="subtitle">Sígueme para estar al tanto de mis últimas publicaciones y eventos en vivo:</p>
+            <p class="subtitle">Sígueme para estar al tanto de mis últimas publicaciones y transmisiones en vivo:</p>
             
             <div class="social-grid">
                 <a target="_blank" href="https://www.youtube.com/@RedsitoVT" class="social-card youtube">
-                    <img src="assets/yt_round_icon.svg" alt="YouTube" width="35" height="35">
+                    <img src="assets/yt_round_icon.svg" alt="YouTube" width="35" height="35" loading="lazy">
                     <span>YouTube</span>
                 </a>
                 <a target="_blank" href="https://twitter.com/Redsitoo_" class="social-card twitter">
-                    <img src="assets/x_logo.svg" alt="Twitter" width="40" height="40">
+                    <img src="assets/twitter_icon.png" alt="Twitter" width="40" height="40" loading="lazy">
                     <span>Twitter</span>
                 </a>
                 <a target="_blank" href="https://www.twitch.tv/RedsitoVT" class="social-card twitch">
-                    <img src="assets/twitch_logo.png" alt="Twitch" width="50" height="50">
+                    <img src="assets/twitch_logo.png" alt="Twitch" width="50" height="50" loading="lazy">
                     <span>Twitch</span>
                 </a>
             </div>
@@ -108,13 +138,11 @@
         const navList = document.getElementById('nav-list');
         const navLinks = navList.querySelectorAll('a');
 
-        // Funcionalidad para abrir/cerrar el menú en móviles
         mobileMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('is-active');
             navList.classList.toggle('active');
         });
 
-        // Cerrar el menú lateral en móvil al hacer clic en un enlace
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('is-active');
@@ -122,7 +150,6 @@
             });
         });
 
-        // Detectar scroll (Solo para PC, en móviles la barra siempre se ve)
         window.addEventListener('scroll', () => {
             if (window.innerWidth > 768) {
                 if (window.scrollY === 0) {
@@ -133,7 +160,6 @@
             }
         });
 
-        // Detectar el movimiento del cursor (Solo para PC)
         window.addEventListener('mousemove', (e) => {
             if (window.innerWidth > 768) {
                 if (e.clientY <= 90) {
@@ -144,6 +170,33 @@
                     }
                 }
             }
+        });
+
+        // Slider
+        const wrapper = document.getElementById('slider-wrapper');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            //desplazar el wrapper horizontalmente según el índice actual
+            const percentage = -currentIndex * 100;
+            wrapper.style.transform = `translateX(${percentage}%)`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            //avanzar o volver al inicio si es el último
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            //retroceder o ir al final si es el primero
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlider();
         });
     </script>
 </body>
