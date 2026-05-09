@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="shortcut icon" href="assets/logo.png" type="image/png">
+    <title>RedsitoVT</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+    <div id="hover-zone"></div>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#main-info">¿Quién soy?</a></li>
+            <li><a href="#info">Contenido</a></li>
+            <li><a href="#twitch-live">En Vivo</a></li>
+            <li><a href="#rrss">Redes Sociales</a></li>
+            <li><a href="friends.html">Amigos</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <h1>Conoce a <span>RedsitoVT</span></h1>
+        <p>Un furro al que no te arrepentirás de conocer</p>
+    </header>
+
+    <main>
+        <section id="main-info" class="container">
+            <h2>¿Quién es RedsitoVT?</h2>
+            <p>Soy un creador de contenido que hace videos para YouTube y transmisiones en Twitch (cuando me acuerdo muejeje).</p>
+            <p>Me suelen llamar furro por usar un traje de dinosaurio rojo, pero que te puedo decir. Amo los dinosaurios y el color rojo.</p>
+            <p>Mi plataforma principal es Twitch, donde paso mi tiempo jugando y hablando con mi pequeñita pero divertida comunidad.</p>
+        </section>
+
+        <section id="info" class="container dark-bg">
+            <h2>Contenido destacado</h2>
+            <ul class="features-list">
+                <li>🎮 Gameplays de los últimos lanzamientos</li>
+                <li>💻 Reseñas detalladas de hardware y software</li>
+                <li>🎯 Tutoriales para mejorar habilidades en videojuegos</li>
+                <li>📰 Noticias y actualizaciones del mundo tecnológico</li>
+            </ul>
+        </section>
+
+        <section id="twitch-live" class="container">
+            <h2>Transmisión en Vivo</h2>
+            <div class="twitch-wrapper">
+                <div class="video-container">
+                    <iframe
+                        src="https://player.twitch.tv/?channel=redsitovt&parent=redsitocum.github.io"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        scrolling="no"
+                        height="100%"
+                        width="100%">
+                    </iframe>
+                </div>
+                
+                <div class="chat-container">
+                    <iframe 
+                        src="https://www.twitch.tv/embed/redsitovt/chat?parent=redsitocum.github.io&darkpopout"
+                        height="100%"
+                        width="100%">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="rrss" class="container dark-bg">
+            <h2>Mis Redes Sociales</h2>
+            <p class="subtitle">Sígueme para estar al tanto de mis últimas publicaciones y eventos en vivo:</p>
+            
+            <div class="social-grid">
+                <a target="_blank" href="https://www.youtube.com/@RedsitoVT" class="social-card youtube">
+                    <img src="assets/yt_round_icon.svg" alt="YouTube" width="35" height="35">
+                    <span>YouTube</span>
+                </a>
+                <a target="_blank" href="https://twitter.com/Redsitoo_" class="social-card twitter">
+                    <img src="assets/x_logo.svg" alt="Twitter" width="40" height="40">
+                    <span>Twitter</span>
+                </a>
+                <a target="_blank" href="https://www.twitch.tv/RedsitoVT" class="social-card twitch">
+                    <img src="assets/twitch_logo.png" alt="Twitch" width="50" height="50">
+                    <span>Twitch</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="#home" class="back-to-top">↑ Volver arriba</a>
+        <p>© 2026 RedsitoVT. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        
+        // Detectar cuando haces scroll hacia abajo o arriba
+        window.addEventListener('scroll', () => {
+            if (window.scrollY === 0) {
+                navbar.style.top = '0'; // Mostrar si estás arriba del todo
+            } else {
+                navbar.style.top = '-80px'; // Ocultar al bajar
+            }
+        });
+
+        // Detectar el movimiento del cursor
+        window.addEventListener('mousemove', (e) => {
+            if (e.clientY <= 90) {
+                navbar.style.top = '0'; // Mostrar si el cursor sube
+            } else {
+                if (window.scrollY > 0) {
+                    navbar.style.top = '-80px'; // Ocultar si el cursor baja (y no estás arriba)
+                }
+            }
+        });
+    </script>
+</body>
+</html>

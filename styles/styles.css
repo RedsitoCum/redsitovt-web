@@ -1,0 +1,310 @@
+/* --- Variables de Color --- */
+:root {
+    --bg-color: #121212;
+    --bg-secondary: #1e1e1e;
+    --text-color: #f5f5f5;
+    --text-muted: #aaaaaa;
+    --accent-red: #e63946;
+    --accent-twitch: #9146FF;
+    --accent-twitter: #1DA1F2;
+    --accent-youtube: #FF0000;
+}
+
+/* --- Estilos Generales --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth; 
+}
+
+h1, h2, h3 {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-red);
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #ff5c6a;
+}
+
+/* --- Barra de Navegación (Auto-hide) --- */
+#hover-zone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 999;
+}
+
+#navbar {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    /* Animación de entrada para el menú */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+}
+
+#navbar a {
+    color: var(--text-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+#navbar a:hover {
+    color: var(--accent-red);
+}
+
+/* --- Secciones y Contenedores --- */
+.container {
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.dark-bg {
+    background-color: var(--bg-secondary);
+    box-shadow: 0 0 0 100vmax var(--bg-secondary);
+    clip-path: inset(0 -100vmax);
+}
+
+/* --- Hero (Inicio) --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    background: linear-gradient(135deg, #0a0000, #3d0004, #1a0000, #5c0006);
+    background-size: 400% 400%; 
+    animation: fuegoAnimado 12s ease infinite; 
+    
+    border-bottom: 2px solid var(--accent-red);
+}
+
+@keyframes fuegoAnimado {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    /* Animación de entrada para el título */
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.hero h1 span {
+    color: var(--accent-red);
+    display: inline-block;
+    text-shadow: none; 
+    transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.hero h1 span:hover {
+    transform: scale(1.08) translateY(-3px);
+    color: #ff5c6a;
+    text-shadow: 0 0 15px rgba(255, 92, 106, 0.8), 
+                 0 0 30px rgba(255, 92, 106, 0.6), 
+                 0 0 45px rgba(255, 92, 106, 0.4);
+    cursor: default;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    /* Animación de entrada para el subtítulo */
+    opacity: 0; 
+    animation: fadeInUp 1s ease-out 0.3s forwards;
+}
+
+/* --- Contenido Destacado (Lista) --- */
+.features-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.features-list li {
+    background-color: var(--bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Twitch Embed (Video + Chat) --- */
+.twitch-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    height: 650px; 
+    margin-top: 30px;
+    background-color: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.video-container {
+    flex: 3; 
+    height: 100%;
+    position: relative;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.chat-container {
+    flex: 1; 
+    height: 100%;
+    border-left: 1px solid #333;
+}
+
+@media (max-width: 768px) {
+    .twitch-wrapper {
+        flex-direction: column;
+        height: 800px; 
+    }
+    
+    .video-container {
+        flex: none;
+        height: 300px; 
+    }
+    
+    .chat-container {
+        flex: 1;
+        border-left: none;
+        border-top: 1px solid #333;
+    }
+}
+
+/* --- Redes Sociales (Grid) --- */
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+.social-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.social-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--bg-color);
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid transparent;
+}
+
+.social-card img {
+    border-radius: 50%;
+    object-fit: contain; 
+}
+
+.social-card:hover {
+    transform: translateY(-5px);
+}
+
+.youtube:hover {
+    border-color: var(--accent-youtube);
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.2);
+}
+
+.twitter:hover {
+    border-color: var(--accent-twitter);
+    box-shadow: 0 5px 20px rgba(29, 161, 242, 0.2);
+}
+
+.twitch:hover {
+    border-color: var(--accent-twitch);
+    box-shadow: 0 5px 20px rgba(145, 70, 255, 0.2);
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #0a0a0a;
+}
+
+.back-to-top {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Ajuste de tamaño exclusivo para la sección de Twitch --- */
+#twitch-live {
+    max-width: 1300px; 
+}
+
+/* --- Animación de Aparición Gradual --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
