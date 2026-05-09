@@ -13,7 +13,13 @@
     <div id="hover-zone"></div>
 
     <nav id="navbar">
-        <ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        
+        <ul id="nav-list">
             <li><a href="#home">Inicio</a></li>
             <li><a href="#main-info">¿Quién soy?</a></li>
             <li><a href="#info">Contenido</a></li>
@@ -98,23 +104,44 @@
 
     <script>
         const navbar = document.getElementById('navbar');
-        
-        // Detectar cuando haces scroll hacia abajo o arriba
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        const navLinks = navList.querySelectorAll('a');
+
+        // Funcionalidad para abrir/cerrar el menú en móviles
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('is-active');
+            navList.classList.toggle('active');
+        });
+
+        // Cerrar el menú lateral en móvil al hacer clic en un enlace
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('is-active');
+                navList.classList.remove('active');
+            });
+        });
+
+        // Detectar scroll (Solo para PC, en móviles la barra siempre se ve)
         window.addEventListener('scroll', () => {
-            if (window.scrollY === 0) {
-                navbar.style.top = '0'; // Mostrar si estás arriba del todo
-            } else {
-                navbar.style.top = '-80px'; // Ocultar al bajar
+            if (window.innerWidth > 768) {
+                if (window.scrollY === 0) {
+                    navbar.style.top = '0';
+                } else {
+                    navbar.style.top = '-80px';
+                }
             }
         });
 
-        // Detectar el movimiento del cursor
+        // Detectar el movimiento del cursor (Solo para PC)
         window.addEventListener('mousemove', (e) => {
-            if (e.clientY <= 90) {
-                navbar.style.top = '0'; // Mostrar si el cursor sube
-            } else {
-                if (window.scrollY > 0) {
-                    navbar.style.top = '-80px'; // Ocultar si el cursor baja (y no estás arriba)
+            if (window.innerWidth > 768) {
+                if (e.clientY <= 90) {
+                    navbar.style.top = '0';
+                } else {
+                    if (window.scrollY > 0) {
+                        navbar.style.top = '-80px';
+                    }
                 }
             }
         });

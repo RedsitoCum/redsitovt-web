@@ -1,4 +1,3 @@
-/* --- Variables de Color --- */
 :root {
     --bg-color: #121212;
     --bg-secondary: #1e1e1e;
@@ -10,11 +9,15 @@
     --accent-youtube: #FF0000;
 }
 
-/* --- Estilos Generales --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Aplicar el smooth scroll en el HTML permite que funcione en todos los navegadores */
+html {
+    scroll-behavior: smooth; 
 }
 
 body {
@@ -22,7 +25,6 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    scroll-behavior: smooth; 
 }
 
 h1, h2, h3 {
@@ -40,7 +42,7 @@ a:hover {
     color: #ff5c6a;
 }
 
-/* --- Barra de Navegación (Auto-hide) --- */
+/* --- Barra de Navegación (Auto-hide y PC) --- */
 #hover-zone {
     position: fixed;
     top: 0;
@@ -70,7 +72,6 @@ a:hover {
     list-style: none;
     display: flex;
     gap: 30px;
-    /* Animación de entrada para el menú */
     opacity: 0;
     animation: fadeInUp 0.8s ease-out 0.6s forwards;
 }
@@ -85,6 +86,20 @@ a:hover {
 
 #navbar a:hover {
     color: var(--accent-red);
+}
+
+/* --- Botón Hamburguesa (Oculto por defecto en PC) --- */
+.menu-toggle {
+    display: none;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
 }
 
 /* --- Secciones y Contenedores --- */
@@ -126,7 +141,6 @@ a:hover {
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 10px;
-    /* Animación de entrada para el título */
     animation: fadeInUp 1s ease-out forwards;
 }
 
@@ -149,12 +163,10 @@ a:hover {
 .hero p {
     font-size: 1.2rem;
     color: var(--text-muted);
-    /* Animación de entrada para el subtítulo */
     opacity: 0; 
     animation: fadeInUp 1s ease-out 0.3s forwards;
 }
 
-/* --- Contenido Destacado (Lista) --- */
 .features-list {
     list-style: none;
     display: grid;
@@ -174,7 +186,6 @@ a:hover {
     gap: 10px;
 }
 
-/* --- Twitch Embed (Video + Chat) --- */
 .twitch-wrapper {
     display: flex;
     flex-direction: row;
@@ -206,24 +217,6 @@ a:hover {
     flex: 1; 
     height: 100%;
     border-left: 1px solid #333;
-}
-
-@media (max-width: 768px) {
-    .twitch-wrapper {
-        flex-direction: column;
-        height: 800px; 
-    }
-    
-    .video-container {
-        flex: none;
-        height: 300px; 
-    }
-    
-    .chat-container {
-        flex: 1;
-        border-left: none;
-        border-top: 1px solid #333;
-    }
 }
 
 /* --- Redes Sociales (Grid) --- */
@@ -262,22 +255,29 @@ a:hover {
     transform: translateY(-5px);
 }
 
+/* --- Mejora en el Hover de Redes Sociales --- */
 .youtube:hover {
     border-color: var(--accent-youtube);
     box-shadow: 0 5px 20px rgba(255, 0, 0, 0.2);
 }
+.social-card.youtube:hover span { color: var(--accent-youtube); }
 
 .twitter:hover {
     border-color: var(--accent-twitter);
     box-shadow: 0 5px 20px rgba(29, 161, 242, 0.2);
 }
+.social-card.twitter:hover span { color: var(--accent-twitter); }
 
 .twitch:hover {
     border-color: var(--accent-twitch);
     box-shadow: 0 5px 20px rgba(145, 70, 255, 0.2);
 }
+.social-card.twitch:hover span { color: var(--accent-twitch); }
 
-/* --- Footer --- */
+.social-card span {
+    transition: color 0.3s ease;
+}
+
 footer {
     text-align: center;
     padding: 40px 20px;
@@ -292,12 +292,10 @@ footer {
     letter-spacing: 1px;
 }
 
-/* --- Ajuste de tamaño exclusivo para la sección de Twitch --- */
 #twitch-live {
     max-width: 1300px; 
 }
 
-/* --- Animación de Aparición Gradual --- */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -306,5 +304,80 @@ footer {
     to {
         opacity: 1;
         transform: translateY(0); 
+    }
+}
+
+/* ========================================================= */
+/* --- RESPONSIVE DESIGN (MÓVILES Y TABLETS) --- */
+/* ========================================================= */
+
+@media (max-width: 768px) {
+    /* Ajustes para la sección de Twitch */
+    .twitch-wrapper {
+        flex-direction: column;
+        height: 800px; 
+    }
+    .video-container {
+        flex: none;
+        height: 300px; 
+    }
+    .chat-container {
+        flex: 1;
+        border-left: none;
+        border-top: 1px solid #333;
+    }
+
+    /* Ajustes para la barra de navegación en móviles */
+    #navbar {
+        justify-content: flex-end; /* Alineamos el menú a la derecha */
+        padding-right: 25px;
+        top: 0 !important; /* Siempre visible en celular */
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        z-index: 1001; /* Que quede por encima del menú desplegado */
+    }
+
+    /* Ocultar el texto del hover en móvil para evitar que estorbe al menú */
+    #hover-zone {
+        display: none;
+    }
+
+    /* Diseño del menú lateral para celular */
+    #navbar ul {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Oculto fuera de la pantalla */
+        height: 100vh;
+        width: 250px;
+        flex-direction: column;
+        background-color: rgba(18, 18, 18, 0.98);
+        padding-top: 80px;
+        transition: right 0.4s ease;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        opacity: 1; /* Quitamos la animación de fade in del PC */
+        animation: none;
+        gap: 0;
+    }
+
+    #navbar ul li {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    /* Clase que se activa con JS para deslizar el menú */
+    #navbar ul.active {
+        right: 0;
+    }
+    .menu-toggle.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 }
