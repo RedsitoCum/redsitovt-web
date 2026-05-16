@@ -171,7 +171,6 @@ a:hover {
     animation: fadeInUp 1s ease-out 0.3s forwards;
 }
 
-/*Estilos del Slider*/
 .slider-container {
     position: relative;
     max-width: 800px;
@@ -190,21 +189,31 @@ a:hover {
 }
 
 .slider-wrapper {
-    display: flex;
+    position: relative;
     width: 100%;
-    transition: transform 0.5s ease-out; /* Animación de deslizamiento */
 }
 
 .slide {
-    flex: 0 0 100%; /* Cada video ocupa el 100% del ancho del contenedor */
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    background-color: #000;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+.slide.active {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
 }
 
 /* Ingeniería para mantener proporción 16:9 de YouTube/Twitch */
 .video-responsive {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
 }
@@ -365,20 +374,16 @@ footer {
     }
 }
 
-/* ========================================================= */
-/* --- RESPONSIVE DESIGN (MÓVILES Y TABLETS) --- */
-/* ========================================================= */
+/*RESPONSIVE DESIGN (MÓVILES Y TABLETS) */
 
 @media (max-width: 768px) {
-    /* Ajuste Hero y GIF en móvil */
     .hero-gif {
-        max-width: 100px;
+        max-width: 150px;
     }
     .hero h1 {
         font-size: 2.5rem;
     }
 
-    /* Ajustes para la sección de Twitch principal */
     .twitch-wrapper {
         flex-direction: column;
         height: 800px; 
@@ -393,7 +398,6 @@ footer {
         border-top: 1px solid #333;
     }
 
-    /* Ajustes para la barra de navegación en móviles */
     #navbar {
         justify-content: flex-end; 
         padding-right: 25px;
@@ -444,10 +448,65 @@ footer {
     .menu-toggle.is-active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
-
-    /* Ajuste flechas slider en móvil (más pequeñas) */
     .slider-btn {
         font-size: 1.5rem;
         padding: 10px 5px;
+    }
+}
+
+/* --- Popup de Amigos --- */
+.popup-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.popup-overlay.active {
+    display: flex;
+}
+
+.popup-content {
+    background-color: var(--bg-secondary);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+    border: 2px solid var(--accent-red);
+    box-shadow: 0 0 20px rgba(230, 57, 70, 0.6), inset 0 0 10px rgba(230, 57, 70, 0.2);
+    animation: popUpAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-popup:hover {
+    color: var(--accent-red);
+}
+
+@keyframes popUpAnim {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 }

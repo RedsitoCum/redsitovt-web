@@ -25,7 +25,7 @@
             <li><a href="#info">Contenido</a></li>
             <li><a href="#twitch-live">En Vivo</a></li>
             <li><a href="#rrss">Redes Sociales</a></li>
-            <li><a href="friends.html">Amigos</a></li>
+            <li><a href="#" id="open-popup">Amigos</a></li>
         </ul>
     </nav>
 
@@ -48,12 +48,36 @@
             
             <div class="slider-container">
                 <div class="slider-wrapper" id="slider-wrapper">
+
+                    <div class="slide">
+                        <div class="video-responsive">
+                            <iframe 
+                                src="https://www.youtube.com/embed/evIGGgHD8fU?si=u0ixOoYMMNAHJ2DJ" 
+                                title="Actualización de Alan Wake en Phasmophobia con AnahiZiX" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <div class="slide">
+                        <div class="video-responsive">
+                            <iframe 
+                                src="https://www.youtube.com/embed/Q7bp-O5s77c?si=7SEhcPqnE24aJfCZ"
+                                title="ESTRENO DE SUBNAUTICA 2" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
                     
                     <div class="slide">
                         <div class="video-responsive">
                             <iframe 
                                 src="https://www.youtube.com/embed/8inrSuzXqLM?si=LXzGefENIIt6cotC&amp" 
-                                title="YouTube video player" 
+                                title="Chun-Li vuelve a la tienda de Fortnite" 
                                 frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                 allowfullscreen loading="lazy">
@@ -65,7 +89,7 @@
                         <div class="video-responsive">
                             <iframe 
                                 src="https://www.youtube.com/embed/lk-QDHTgvAA?si=2K_L40CB_Q0vxAA_" 
-                                title="YouTube video player" 
+                                title="Poppy Playtime: Chapter 5 - Gameplay Completo"
                                 frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                 allowfullscreen loading="lazy">
@@ -132,6 +156,14 @@
         <p>© 2026 RedsitoVT. Todos los derechos reservados.</p>
     </footer>
 
+<div id="friends-popup" class="popup-overlay">
+    <div class="popup-content">
+        <span class="close-popup" id="close-popup">&times;</span>
+        <h2>¡Próximamente!</h2>
+        <p>La sección de Amigos aún no está disponible. ¡Se está trabajando en ello!</p>
+    </div>
+</div>
+
     <script>
         const navbar = document.getElementById('navbar');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -172,31 +204,49 @@
             }
         });
 
-        // Slider
-        const wrapper = document.getElementById('slider-wrapper');
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
 
         let currentIndex = 0;
-        const totalSlides = slides.length;
 
-        function updateSlider() {
-            //desplazar el wrapper horizontalmente según el índice actual
-            const percentage = -currentIndex * 100;
-            wrapper.style.transform = `translateX(${percentage}%)`;
+        slides[0].classList.add('active');
+
+        function showSlide(index) {
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            slides[index].classList.add('active');
         }
 
         nextBtn.addEventListener('click', () => {
-            //avanzar o volver al inicio si es el último
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateSlider();
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
         });
 
         prevBtn.addEventListener('click', () => {
-            //retroceder o ir al final si es el primero
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateSlider();
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        });
+
+
+        const openPopupBtn = document.getElementById('open-popup');
+        const closePopupBtn = document.getElementById('close-popup');
+        const popupOverlay = document.getElementById('friends-popup');
+
+        openPopupBtn.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            popupOverlay.classList.add('active');
+        });
+
+        closePopupBtn.addEventListener('click', () => {
+            popupOverlay.classList.remove('active');
+        });
+
+        popupOverlay.addEventListener('click', (e) => {
+            if (e.target === popupOverlay) {
+                popupOverlay.classList.remove('active');
+            }
         });
     </script>
 </body>
